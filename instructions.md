@@ -383,7 +383,7 @@ This guide assumes that a series of ATS simulations have already been completed 
 {% endhint %}
 
 {% hint style="info" %}
-This guide focuses on outlining the key steps and therefore includes only selected code snippets. The complete Jupyter notebook for the ATS MDA workflow is available on [GitHub](https://github.com).
+This guide focuses on outlining the key steps and therefore includes only selected code snippets. The complete Jupyter notebook for the ATS MDA workflow is available on [ESS-DIVE ATS MDA GitHub repo](https://github.com/ess-dive-workspace/essdive-ATS-model-data-archiving/blob/main/ats_mda_workflow.ipynb).
 {% endhint %}
 
 ### Import essential Python packages
