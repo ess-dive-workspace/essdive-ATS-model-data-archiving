@@ -1,16 +1,16 @@
-# ATS Model Data Archive (MDA) Standard v 1.0.0
+# ATS Model Data Archive (MDA) Reporting Format v 1.0.0
 
 ## About
 
-This standard is recommended for ATS users to create their MDA and host the MDA on ESS-DIVE.
+This ATS MDA Reporting Format is recommended for ATS users to create the MDA based on their ATS model runtime directories, and host the MDA on ESS-DIVE.
 
 ## Quickstart Guide
 
   1. **Read** the tutorial at https://github.com/ess-dive-workspace/essdive-ATS-model-data-archiving/blob/main/instructions.md;
-  2. **Run** the notebook towards your ATS model data on either your local machine or an HPC;
+  2. **Run** the notebook towards your ATS model runtime directory on either your local machine or an HPC;
   3. **Read** the ESS-DIVE data submission guidelines at https://ess-dive.lbl.gov/archive/;
   4. **Upload** your ATS MDA to ESS-DIVE using the Data Submission Web Form at https://data.ess-dive.lbl.gov/submit.
-    
+
 ## How to contribute
 
 Report issues at https://github.com/ess-dive-workspace/essdive-ATS-model-data-archiving/issues. ESS-DIVE support email: ess-dive-support *at* lbl.gov
