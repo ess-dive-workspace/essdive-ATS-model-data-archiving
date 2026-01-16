@@ -1,26 +1,18 @@
 
-<h2 align="center">Welcome to the Documentation for ATS Model Data Archiving (MDA) Reporting Format</h2>
+## Welcome to the Documentation for ATS Model Data Archiving (MDA) Reporting Format
 
-<table data-view="cards">
-  <thead><tr><th></th><th data-type="content-ref"></th><th data-hidden data-card-cover data-type="image">Cover image</th></tr></thead>
-  <tbody>
-    <tr>
-      <td><strong><code>Advanced Terrestrial Simulator (ATS)</code></strong> is an open-source, multiphysics numerical modeling code used for solving complex ecohydrology and earth system problems. It's a powerful tool for simulating integrated, distributed hydrology at watershed-to-river basin scales.</td>
-      <td><a href="https://amanzi.github.io/ats/stable/">https://amanzi.github.io/ats/stable/</a></td>
-      <td><a href="product.html"><img src=".gitbook/assets/ats_coweeta.png" alt="ats_coweeta"></a></td>
-    </tr>
-    <tr>
-      <td>Funded by the U.S. Department of Energy’s Office of Science Biological and Environmental Research (BER) program under its Environmental System Science (ESS) program, <strong><code>ESS-DIVE</code></strong> (Environmental System Science Data Infrastructure for a Virtual Ecosystem) is a data repository for earth and environmental science data. </td>
-      <td><a href="https://ess-dive.lbl.gov/">https://ess-dive.lbl.gov/</a></td>
-      <td><a href="product.html"><img src=".gitbook/assets/ess-dive-site-title-logo.png" alt="ess-dive-site-title-logo"></a></td>
-    </tr>
-    <tr>
-      <td><strong>Model Data Archiving (MDA)</strong> is a data reporting format and a set of instructions developed to guide the archival and sharing of data generated from environmental model simulations.</td>
-      <td><a href="https://github.com/ess-dive-workspace/essdive-ATS-model-data-archiving/">https://github.com/ess-dive-workspace/essdive-ATS-model-data-archiving/</a></td>
-      <td><a href="product.html"><img src=".gitbook/assets/ats_mda_gemini_6.png" alt="ats_mda_gemini_6"></a></td>
-    </tr>
-  </tbody>
-</table>
+- Advanced Terrestrial Simulator (ATS) is an open-source, multiphysics numerical modeling code used for solving complex ecohydrology and earth system problems. It's a powerful tool for simulating integrated, distributed hydrology at watershed-to-river basin scales.
+  Reference: https://amanzi.github.io/ats/stable/
+
+  ![ats_coweeta](.gitbook/assets/ats_coweeta.png)
+- Funded by the U.S. Department of Energy’s Office of Science Biological and Environmental Research (BER) program under its Environmental System Science (ESS) program, ESS-DIVE (Environmental System Science Data Infrastructure for a Virtual Ecosystem) is a data repository for earth and environmental science data.
+  Reference: https://ess-dive.lbl.gov/
+
+  ![ess-dive-site-title-logo](.gitbook/assets/ess-dive-site-title-logo.png)
+- Model Data Archiving (MDA) is a data reporting format and a set of instructions developed to guide the archival and sharing of data generated from environmental model simulations.
+  Reference: https://github.com/ess-dive-workspace/essdive-ATS-model-data-archiving/
+
+  ![ats_mda_gemini_6](.gitbook/assets/ats_mda_gemini_6.png)
 
 
 # ATS MDA Reporting Format Documentation
@@ -241,17 +233,14 @@ Source: https://raw.githubusercontent.com/amanzi/ats/refs/heads/master/docs/docu
 
 ## Review: Model Data Archiving Guidelines
 
-{% hint style="info" %}
-List of ESS-DIVE Data Reporting Formats: [https://ess-dive.lbl.gov/data-reporting-formats/](https://ess-dive.lbl.gov/data-reporting-formats/)
-{% endhint %}
+> **Info:** List of ESS-DIVE Data Reporting Formats: [https://ess-dive.lbl.gov/data-reporting-formats/](https://ess-dive.lbl.gov/data-reporting-formats/)
 
-{% hint style="info" %}
-File Level Metadata Reporting Format: [https://ess-dive.gitbook.io/file-level-metadata-reporting-format/](https://ess-dive.gitbook.io/file-level-metadata-reporting-format/)
-{% endhint %}
 
-{% hint style="info" %}
-Model Data Archiving Guidelines ([Simmonds et al. 2022](http://doi.org/10.5334/dsj-2022-003)): [https://ess-dive.gitbook.io/model-data-archiving-guidelines/](https://ess-dive.gitbook.io/model-data-archiving-guidelines/)
-{% endhint %}
+> **Info:** File Level Metadata Reporting Format: [https://ess-dive.gitbook.io/file-level-metadata-reporting-format/](https://ess-dive.gitbook.io/file-level-metadata-reporting-format/)
+
+
+> **Info:** Model Data Archiving Guidelines ([Simmonds et al. 2022](http://doi.org/10.5334/dsj-2022-003)): [https://ess-dive.gitbook.io/model-data-archiving-guidelines/](https://ess-dive.gitbook.io/model-data-archiving-guidelines/)
+
 
 The outline specified by the MDA guidelines is:
 
@@ -270,9 +259,8 @@ The outline specified by the MDA guidelines is:
 2. Deciding how to bundle files
 3. File-Level Metadata
 
-{% hint style="info" %}
-See [https://ess-dive.gitbook.io/model-data-archiving-guidelines/](https://ess-dive.gitbook.io/model-data-archiving-guidelines/) for more details.
-{% endhint %}
+> **Info:** See [https://ess-dive.gitbook.io/model-data-archiving-guidelines/](https://ess-dive.gitbook.io/model-data-archiving-guidelines/) for more details.
+
 
 
 
@@ -282,8 +270,8 @@ Driven by community feedback collected through a user survey, best practices est
 
 ### Summary
 
-{% tabs %}
-{% tab title="To Include" %}
+### To Include
+
 * ESS-DIVE metadata files
 * ATS mesh file
 * ATS config file
@@ -295,9 +283,9 @@ Driven by community feedback collected through a user survey, best practices est
 * ATS version and Watershed Workflow version
 * ATS job submission scripts and slurm output files (if HPC)
 * Manuscript-associated files, including figures and plotting scripts
-{% endtab %}
 
-{% tab title="Not To Include" %}
+### Not To Include
+
 * ATS source code
 * Watershed Workflow source code
 * **Raw** model input files
@@ -306,12 +294,9 @@ Driven by community feedback collected through a user survey, best practices est
 * ATS periodic checkpoint files
 * ATS visualization files for spinup & non-ensemble transient runs
 * ATS metadata files accompanying visualization files for spinup & non-ensemble transient runs
-{% endtab %}
-{% endtabs %}
 
-{% hint style="info" %}
-Processed input files must be ATS-readable, e.g., `mywatershed_MODIS_LAI.h5`; raw input files cannot be directly read in ATS, e.g., `MOD10A2.061_500m_aid0001.nc`.
-{% endhint %}
+> **Info:** Processed input files must be ATS-readable, e.g., `mywatershed_MODIS_LAI.h5`; raw input files cannot be directly read in ATS, e.g., `MOD10A2.061_500m_aid0001.nc`.
+
 
 ### Specific
 
@@ -376,211 +361,113 @@ Processed input files must be ATS-readable, e.g., `mywatershed_MODIS_LAI.h5`; ra
 
 ## ATS MDA Workflow: A Step-by-Step Guide
 
-{% hint style="info" %}
-This guide assumes that a series of ATS simulations have already been completed on either a local machine or an HPC platform. Typically, users will refer to this guide when they are preparing to submit a manuscript to a scientific journal for publication.
-{% endhint %}
+> **Info:** This guide assumes that a set of ATS simulations has already completed on a local machine or an HPC platform. The goal is to produce a curated directory suitable for publication and long-term reuse.
 
-{% hint style="info" %}
-This guide focuses on outlining the key steps and therefore includes only selected code snippets. The complete Jupyter notebook for the ATS MDA workflow is available on [ESS-DIVE ATS MDA GitHub repo](https://github.com/ess-dive-workspace/essdive-ATS-model-data-archiving/blob/main/ats_mda_workflow.ipynb).
-{% endhint %}
 
-### Import essential Python packages
+> **Info:** The full, executable workflow is implemented in the Jupyter notebook in this repository (see `ats_mda_workflow.ipynb`, or use direct link: https://github.com/ess-dive-workspace/essdive-ATS-model-data-archiving/blob/main/ats_mda_workflow.ipynb). This section stays close to that notebook and highlights the key steps users typically edit.
 
-```python
-import os
-import glob
-import logging
-import subprocess # We use subprocess to execute Linux commands in Python
-import requests
-from io import StringIO
-from html.parser import HTMLParser
-from pathlib import Path
-import pandas as pd
-import numpy as np
-import xml.etree.ElementTree as ET
+
+### Step 0 — Configure paths and workflow options
+
+In the notebook, you edit a single **configuration block** to point to:
+
+- the **source** ATS simulation directory (`simulation_dir`), and
+- the **destination** curated package directory (`data_pkg_dir`, commonly named `my_ATS_MDA`).
+
+You also control which files are copied and how downstream metadata is generated.
+
+Key configuration fields include:
+
+- `include_extensions`: file extensions to include (e.g., `xml`, `exo`, `h5`, `csv`)
+- `include_name_globs`: filename patterns to include even if the extension is not listed (e.g., `slurm*`)
+- `run_tokens`: tokens used to identify run directories for post-copy cleanup (default `run0/run1/run2`)
+- `keep_checkpoint_token`: token used to preserve final checkpoints (default `final`)
+- `obs_file_handle`, `obs_file_format`: how a representative observation CSV is selected to build `dd.csv`
+
+### Step 1 — Validate the source directory and prepare the destination
+
+The notebook checks that the source exists and creates `data_pkg_dir` if needed.
+
+Practical note: treat `data_pkg_dir` as a **disposable staging area** until you have reviewed the package content.
+
+### Step 2 — Copy publishable artifacts into `data_pkg_dir`
+
+The notebook uses `rsync` (when available) to copy only selected file types while preserving the directory structure.
+It runs `rsync` in live mode with progress enabled so you can see per-file transfer status.
+
+- If `rsync` is not available on your system, the notebook falls back to a slower Python-based copy.
+
+### Step 3 — Post-copy cleanup (remove bulky intermediates)
+
+Many ATS run directories contain large intermediate files that are not typically required for publication.
+The notebook performs a best-effort cleanup within detected run directories:
+
+- removes **non-final** checkpoint files (keeps only those whose filename contains `keep_checkpoint_token`),
+- removes Paraview `*.xmf` metadata files, and
+- removes visualization time-series files matching `ats_vis_*.h5`.
+
+#### Run directories are not guaranteed
+
+Users may have **some** (not all) of `run0`, `run1`, `run2`, or they may use different naming.
+The notebook therefore:
+
+- searches for directories whose names contain any token in `run_tokens`,
+- proceeds if it finds **at least one** matching directory, and
+- raises an error if it finds **none** (because it has nothing to operate on).
+
+If your run directories are named differently, update `run_tokens` accordingly.
+
+### Step 4 — Enumerate all files and generate `flmd.csv`
+
+The notebook inventories all files under `data_pkg_dir` and writes a first-pass **File Level Metadata** table:
+
+- `flmd.csv` lists each file name and its relative path.
+- The notebook adds a few lightweight, pattern-based description hints.
+
+You should review and edit `flmd.csv` to ensure file descriptions are accurate and complete.
+
+### Step 5 — Build a data dictionary (`dd.csv`) from a representative observation CSV
+
+To support reuse of tabular outputs, the notebook builds a **Data Dictionary** (`dd.csv`) by parsing column headers from a representative output CSV.
+
+- It searches for files matching `f"{obs_file_handle}*.{obs_file_format}"`.
+- It auto-detects a header line (best effort).
+- If auto-detection fails, you can set a manual header line index in the configuration (`header_line_hint`, 0-based).
+
+### Step 6 — Auto-fill variable definitions (best effort)
+
+When network access is available, the notebook attempts to download the ATS input-spec **symbol table** from the ATS repository and uses it to auto-fill `Definition` entries in `dd.csv`.
+
+This step is heuristic and incomplete by design; you should review the definitions.
+If the download fails (e.g., offline environment), the notebook continues and leaves definitions blank.
+
+### Step 7 — Optional: create a checksum manifest
+
+The notebook can generate a `sha256sums.txt` file for all files in `data_pkg_dir`. This is optional but useful for verifying integrity after copying or uploading.
+
+### Step 8 — Suggested next step: upload to ESS-DIVE
+
+The notebook concludes with a short checklist for uploading your curated directory to ESS-DIVE, including reminders to provide dataset-level metadata and include the generated `flmd.csv` and `dd.csv`.
+
+### Step 9 — Optional: create per-subdirectory tarballs (with automatic splitting > 5 GiB)
+
+For large packages, the notebook can create one `*.tar.gz` archive **per immediate subdirectory** under `data_pkg_dir`.
+
+Example outputs:
+
+- `run0.tar.gz`, `run1.tar.gz`, `run2.tar.gz`
+
+The notebook then reports archive sizes. If any archive exceeds **5 GiB**, it uses `split` to create `5G` parts:
+
+- `run0.tar.gz.part001`, `run0.tar.gz.part002`, ...
+
+A reconstruction recipe is provided in the notebook:
+
+```bash
+cat run0.tar.gz.part* > run0.tar.gz
+gzip -t run0.tar.gz
+tar -tzf run0.tar.gz | head
 ```
-
-### Locate the simulation directory
-
-```python
-simulation_dir = Path(scratch_path + '/myATSrun/') # Define your simulation directory
-if not os.path.exists(simulation_dir):
-    logging.warning(f'Simulation directory <{simulation_dir}> does not exist.')
-else:
-    logging.info(f'Found simulation directory <{simulation_dir}>.')
-```
-
-### Define a MDA destination directory
-
-```python
-data_pkg_dir = Path(scratch_path + '/myATSMDA/') # Define the destination directory for your ATS MDA
-try:
-    os.mkdir(data_pkg_dir)
-    logging.info(f'Data package directory <{data_pkg_dir}> created.')
-except FileExistsError:
-    logging.info(f'Data package directory <{data_pkg_dir}> exists.')
-    pass
-```
-
-### Use `rsync` to select and make a copy of file types included in MDA
-
-```python
-exts = ['exo', 'xml', 'csv', 'dat', 'txt', 'xmf', 'h5', 'out', 'nc', 'jpg', 'png', 'pdf', 'sh'] # Determine your own file types
-exts_to_include = ' '.join([f"--include='*.{f}'" for f in exts])
-try:
-    subprocess.run("rsync -avzP --include=*/ "+exts_to_include+f" --include='slurm*' --exclude=* --prune-empty-dirs {simulation_dir}/ {data_pkg_dir}", shell=True)
-except subprocess.CalledProcessError as e:
-    print(f'Command failed with exit code {e.returncode}')
-```
-
-### Find directories with spinup runs and remove periodic checkpoint files, vis files, and xmf files
-
-```python
-# find periodic checkpoints in run0 and run1
-run0_dir = subprocess.check_output([f'cd {data_pkg_dir}; find -name "*run0*"'], shell=True, encoding='utf-8').rstrip()
-run1_dir = subprocess.check_output([f'cd {data_pkg_dir}; find -name "*run1*"'], shell=True, encoding='utf-8').rstrip()
-if len(run0_checkpoints_non_final) > 0:
-    for f in run0_checkpoints_non_final:
-        subprocess.run(f'cd {data_pkg_dir}; cd {run0_dir}; rm {f}', shell=True)
-        logging.info(f'Removed <{data_pkg_dir}{run0_dir}{f}> from your MDA.')
-else:
-    logging.info('Did not find any non-final checkpoints in <run0>')
-if len(run1_checkpoints_non_final) > 0:
-    for f in run1_checkpoints_non_final:
-        subprocess.run(f'cd {data_pkg_dir}; cd {run1_dir}; rm {f}', shell=True)
-        logging.info(f'Removed <{data_pkg_dir}{run0_dir}{f}> from your MDA.')
-else:
-    logging.info('Did not find any non-final checkpoints in <run1>')
-
-# remove xmf files in run0 and run1
-run0_xmf = subprocess.check_output([f'cd {data_pkg_dir}; cd {run0_dir}; find -name "*.xmf"'], shell=True, encoding='utf-8').split('\n')[1:-1]
-run1_xmf = subprocess.check_output([f'cd {data_pkg_dir}; cd {run1_dir}; find -name "*.xmf"'], shell=True, encoding='utf-8').split('\n')[1:-1]
-if len(run0_xmf) > 0:
-    for f in run0_xmf:
-        subprocess.run(f'cd {data_pkg_dir}; cd {run0_dir}; rm {f}', shell=True)
-        logging.info(f'Removed <{f}> from your MDA.')
-else:
-    logging.info('Did not find any xmf files in <run0>')
-if len(run1_xmf) > 0:
-    for f in run1_xmf:
-        subprocess.run(f'cd {data_pkg_dir}; cd {run1_dir}; rm {f}', shell=True)
-        logging.info(f'Removed <{f}> from your MDA.')
-else:
-    logging.info('Did not find any xmf files in <run1>')
-    
-# remove visualization files in run0 and run1
-run0_vis = subprocess.check_output([f'cd {data_pkg_dir}; cd {run0_dir}; find -name "ats_vis_*.h5"'], shell=True, encoding='utf-8').split('\n')[1:-1]
-run1_vis = subprocess.check_output([f'cd {data_pkg_dir}; cd {run1_dir}; find -name "ats_vis_*.h5"'], shell=True, encoding='utf-8').split('\n')[1:-1]
-if len(run0_vis) > 0:
-    for f in run0_vis:
-        subprocess.run(f'cd {data_pkg_dir}; cd {run0_dir}; rm {f}', shell=True)
-        logging.info(f'Removed <{f}> from your MDA.')
-else:
-    logging.info('Did not find any visualization files in <run0>')
-if len(run1_vis) > 0:
-    for f in run1_vis:
-        subprocess.run(f'cd {data_pkg_dir}; cd {run1_dir}; rm {f}', shell=True)
-        logging.info(f'Removed <{f}> from your MDA.')
-else:
-    logging.info('Did not find any visualization files in <run1>')
-```
-
-## Enumerate all files in this data package <a href="#enumerate-all-files-in-this-data-package" id="enumerate-all-files-in-this-data-package"></a>
-
-```python
-try:
-    paths_and_files = sorted(subprocess.check_output([f'cd {data_pkg_dir}; find -name "*.*"'], shell=True, encoding='utf-8').split('\n')[1:-1])
-    number_of_files = len(paths_and_files)
-except subprocess.CalledProcessError as e:
-    print(f'Command failed with exit code {e.returncode}')
-```
-
-## Parse paths and filenames (needed in `flmd.csv`) <a href="#parse-paths-and-filenames-needed-in-flmd.csv" id="parse-paths-and-filenames-needed-in-flmd.csv"></a>
-
-```python
-files, paths = [], []
-for path_and_file in paths_and_files:
-    files.append(path_and_file.split('/')[-1])
-    paths.append(path_and_file.replace(path_and_file.split('/')[-1], ''))
-d = {'File_Name': files, 
-     'File_Description': ['']*number_of_files, 
-     'Standard': ['N/A']*number_of_files, 
-     'Start_Date': [-9999]*number_of_files, 
-     'End_Date': [-9999]*number_of_files, 
-     'Missing_Value_Codes': ['N/A']*number_of_files, 
-     'File_Path': paths}
-df = pd.DataFrame(data=d) 
-_dict = {'water_balance': 'Model output ascii file for the whole modeling domain.', 
-         'checkpoint': 'Model output binary file as a checkpoint.',
-         'xml': 'Model configuration file.',
-         'xmf': 'Model Paraview visualization metadata file.',
-         'slurm': 'Model screen printout file.',
-         'pflotran': 'Model output file from the biogeochemical engine, Pflotran.',
-         'ats_vis': 'Model output binary file with all time frames.',
-         'LAI': 'Model input file (Leaf Area Index).',
-         'exo': 'Model input file (compuational mesh).'}
-_keys = list(_dict.keys())
-for k in range(len(_dict)):
-    df['File_Description'].iloc[[i if _keys[k] in df['File_Name'][i] else False for i in range(number_of_files)]] = _dict[_keys[k]]
-df.to_csv(data_pkg_dir/'flmd.csv')
-```
-
-## Find all csv files in this data package (needed in `dd.csv`) <a href="#find-all-csv-files-in-this-data-package-needed-in-dd.csv" id="find-all-csv-files-in-this-data-package-needed-in-dd.csv"></a>
-
-```python
-# Define your observation file and file format
-obs_file_handle = 'water_balance'
-obs_file_format = 'csv'
-csv_paths_and_files = subprocess.check_output([f'cd {data_pkg_dir}; find -name "{obs_file_handle}*.{obs_file_format}"'], shell=True, encoding='utf-8').split('\n')[1:-1]
-for csv_file in csv_paths_and_files:
-    with open(data_pkg_dir/csv_file) as f:
-        lines = f.readlines()
-        if csv_file == csv_paths_and_files[0]:
-            print(lines[112])
-            print()
-            parameters = str([s.split(' [')[0] for s in lines[112].split(',')]).replace('\'','').replace('\"','').replace(', ',',').replace(' ','_')[1:-1].split(',')
-            units = str([s.split(' [')[1] for s in lines[112].split(',')]).replace('\'','').replace('\"','').replace(', ',',').replace(']','')[1:-2].split(',')
-            print(parameters)
-            print()
-            print(units)
-    if write_new_csv and inplace: # caution! inplace is dangerous!
-        with open(csv_file, 'w') as g:
-            g.write(''.join(lines))
-    elif write_new_csv:
-        with open(csv_file+'_tmp', 'w') as g:
-            g.write(''.join(lines))
-number_of_parameters, number_of_units = len(parameters), len(units)
-logging.info(f'Numer of parameters: {number_of_parameters}')
-logging.info(f'Numer of units: {number_of_units}')
-d = {'Column_or_Row_Name': parameters, 
-     'Unit': units, 
-     'Definition': ['']*number_of_parameters, 
-     'Data_Type': ['numeric']*number_of_parameters, 
-     'Term_Type': ['column_header']*number_of_parameters}
-df = pd.DataFrame(data=d)
-
-# Read in ATS input spec symbol table
-url = "https://raw.githubusercontent.com/amanzi/ats/refs/heads/master/docs/documentation/source/input_spec/symbol_table.org"
-response = requests.get(url)
-response.raise_for_status()
-content = response.text
-
-table_lines = [line for line in content.splitlines() if line.strip().startswith('|')]
-table_text = "\n".join(table_lines)
-
-df_input_spec = pd.read_csv(StringIO(table_text), sep='|', engine='python', skipinitialspace=True)
-df_input_spec = df_input_spec.map(lambda x: x.strip() if isinstance(x, str) else x)
-df_input_spec = df_input_spec.loc[:, df_input_spec.columns.str.strip().astype(bool)]
-
-number_of_parameters_from_symbol_table = len(df_input_spec.iloc[1:, :])
-logging.info(f'Numer of parameters from the symbol table in ATS input spec: {number_of_parameters_from_symbol_table}')
-_dict = dict(zip(df_input_spec.iloc[1:, 1], df_input_spec.iloc[1:, 3]))
-_keys = list(_dict.keys())
-for k in range(len(_dict)):
-    df['Definition'].iloc[[i if _keys[k] in df['Column_or_Row_Name'][i] else False for i in range(len(df))]] = _dict[_keys[k]]
-df.to_csv(data_pkg_dir/'dd.csv')
-```
-
 
 
 ## Funding and Acknowledgements
@@ -592,45 +479,137 @@ ATS MDA Reporting Format is built under ESS-DIVE Partner Project: Improving Adva
 
 # FAQ
 
+### What does the workflow produce?
+
+A curated directory (commonly `my_ATS_MDA/`) containing the files you intend to publish, plus:
+
+- `flmd.csv` (file inventory and file-level descriptions)
+- `dd.csv` (data dictionary for at least one representative tabular output)
+- optionally `sha256sums.txt` (integrity checks)
+- optionally per-subdirectory `*.tar.gz` archives and split parts for large transfers
 
 
-### How to define processed input files and raw input files
+### Does the workflow modify my original simulation directory?
 
-Processed input files must be ATS-readable, e.g., `mywatershed_MODIS_LAI.h5.`
-
-Raw input files cannot be directly read in ATS, e.g., `MOD10A2.061_500m_aid0001.nc`.
-
-### What is the recommended MDA total size?
-
-1 - 100 GB. If yours is over 100 GB (most probably it is because of huge `ats_vis.h5` file), try to slice `ats_vis.h5` file to select the most relevant variables, or, consider long term storage (such as `HPSS`) for data storage partitioning.
-
-### What is difference between creating an MDA on local machine and on HPC?
-
-There is no essential difference. The only extra files needed to be included in the MDA if the simulations are performed on HPC are the slurm output file (`slurm.out`) and job submission script files (`myjob.sh`).
+No. The workflow **copies** selected files from `simulation_dir` into `data_pkg_dir`, and any cleanup/removal actions are performed **only** inside `data_pkg_dir`.
 
 
+### I do not have `run0/`, `run1/`, or `run2/`. Will the workflow fail?
+
+Not necessarily. The cleanup step only requires **at least one** run directory whose name contains a token listed in `run_tokens`.
+
+- If you have run directories with different names, update `run_tokens` in the configuration.
+- If **no** run directories match any token, the cleanup step raises an error. In that case, either adjust `run_tokens` or skip/modify the cleanup cell.
+
+### My run directories have names like `spinup_runA` and `production_runB`. What should I set `run_tokens` to?
+
+Set `run_tokens` to substrings that appear in those directory names (for example, `("runA", "runB")`). The notebook matches by substring.
+
+### I cannot see copy progress during the `rsync` step. What should I check?
+
+The notebook runs `rsync` with progress enabled. If you do not see progress:
+
+- confirm `rsync` is available on your system (`which rsync`), and
+- ensure you are running the notebook in an environment where subprocess output is shown (typical for Jupyter).
+
+If `rsync` is not available, the notebook falls back to a Python-based copy method (slower and without `rsync`-style progress).
+
+### How do I include additional file types (or exclude something)?
+
+Edit `include_extensions` and `include_name_globs` in the configuration block.
+
+A practical approach is to start with a conservative list, run the copy step, then adjust based on what is missing or what should be omitted.
+
+### The notebook removed files I want to keep (e.g., `*.xmf` or `ats_vis_*.h5`). What should I do?
+
+Edit the cleanup cell in the notebook to match your publication needs. The provided cleanup rules reflect a common archiving preference, but they are not mandatory.
+
+### The data dictionary (`dd.csv`) header parsing did not work for my CSV.
+
+Use `header_line_hint` (0-based line index) to manually specify the header row. The notebook will then re-parse the header from that line.
+
+If your CSV uses a different convention (e.g., units on a second header row), adjust the parsing logic in the notebook accordingly.
+
+
+### I have multiple observation CSV types. How do I generate `dd.csv` for each?
+
+The notebook builds `dd.csv` from **one representative CSV** (selected by `obs_file_handle` and `obs_file_format`).
+
+If you want data dictionaries for multiple CSV schemas, repeat the `dd.csv` generation step with different `obs_file_handle` values and save each output under a distinct filename (e.g., `dd_water_balance.csv`, `dd_energy_balance.csv`).
+
+### The symbol-table download step failed.
+
+That step requires network access to retrieve the ATS symbol table. If you are offline (or the download is blocked), the workflow continues and leaves `dd.csv` definitions blank. You can fill them manually.
+
+
+### Why are some `dd.csv` definitions blank even when the symbol table loads?
+
+Auto-filling is **best effort**. Some output column names will not have a matching entry in the ATS symbol table, and the matching logic is heuristic. Blank definitions are expected and should be filled manually as needed.
+
+### How do I verify that my upload or transfer did not corrupt files?
+
+If you generated `sha256sums.txt`, you can verify on a Linux/HPC system after transfer:
+
+```bash
+sha256sum -c sha256sums.txt
+```
+
+
+
+### Which checkpoint files are retained by default?
+
+During cleanup, the notebook removes checkpoint files matching `checkpoint*.h5` **unless** the filename contains `keep_checkpoint_token` (default: `final`).
+
+If your final checkpoint naming differs, update `keep_checkpoint_token` in the configuration.
+
+### Where are tarballs and split parts written?
+
+By default, tarballs are written **next to the directories they archive**, i.e., into `data_pkg_dir`. The notebook function also supports writing archives to a separate output directory if you prefer to keep packaging artifacts elsewhere.
+
+### What if the `split` command is not available on my system?
+
+The automatic splitting step requires the `split` executable. If it is not available, you can either:
+
+- run the tar/split step on a system where `split` is available, or
+- disable splitting and manage large archives using site-specific transfer tooling.
+
+### One of my `*.tar.gz` files is larger than 5 GiB. What happens?
+
+If you enable the tar/split step, the notebook automatically splits large archives into `5G` parts named:
+
+- `name.tar.gz.part001`, `name.tar.gz.part002`, ...
+
+You can upload the parts individually.
+
+### How do I merge split parts back into a single `*.tar.gz`?
+
+On Linux/HPC:
+
+```bash
+cat run0.tar.gz.part* > run0.tar.gz
+gzip -t run0.tar.gz
+tar -xzf run0.tar.gz
+```
+
+The numeric padding in the filenames ensures correct ordering.
 
 
 # Help Center
 
-<p align="center"></p>
 
-<table data-view="cards">
-  <tbody>
-    <tr>
-      <td><strong>Check if your questions have been answered in FAQ</strong></td><td>— when you have general questions</td>
-      <td><a href="https://github.com/ess-dive-workspace/essdive-ATS-model-data-archiving/edit/main/instructions.md#faq">https://github.com/ess-dive-workspace/essdive-ATS-model-data-archiving/edit/main/instructions.md#faq</a></td>
-    </tr>
-    <tr>
-      <td><strong>Ask the 150+ members in ATS User Google Group</strong></td>
-      <td>— when you have ATS-related questions</td>
-      <td><a href="https://groups.google.com/g/ats-users">https://groups.google.com/g/ats-users</a></td>
-    </tr>
-    <tr>
-      <td><strong>Ask ESS-DIVE staff</strong></td>
-      <td>— when you have ESS-DIVE-related questions</td>
-      <td><a href="https://ess-dive.lbl.gov/contact/">https://ess-dive.lbl.gov/contact/</a></td>
-    </tr>
-  </tbody>
-</table>
 
+
+  
+    
+      **Check if your questions have been answered in FAQ**— when you have general questions
+      [https://github.com/ess-dive-workspace/essdive-ATS-model-data-archiving/edit/main/instructions.md#faq](https://github.com/ess-dive-workspace/essdive-ATS-model-data-archiving/edit/main/instructions.md#faq)
+    
+    
+      **Ask the 150+ members in ATS User Google Group**
+      — when you have ATS-related questions
+      [https://groups.google.com/g/ats-users](https://groups.google.com/g/ats-users)
+    
+    
+      **Ask ESS-DIVE staff**
+      — when you have ESS-DIVE-related questions
+      [https://ess-dive.lbl.gov/contact/](https://ess-dive.lbl.gov/contact/)
