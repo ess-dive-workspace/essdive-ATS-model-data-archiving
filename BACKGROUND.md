@@ -99,122 +99,141 @@ Checkpoint files are mostly an internal format that supports checkpoint/restart 
 
 ## Review: ATS Default Names, Symbols, and Units
 
-Source: https://raw.githubusercontent.com/amanzi/ats/refs/heads/master/docs/documentation/source/input_spec/symbol_table.org
+These are **ATS state-field units**, checked against the [ATS 1.6.0 implementation](https://github.com/amanzi/ats/tree/ats-1.6.0), with chemistry conventions from the Alquimia interface. Variable names originate in the [ATS symbol table](https://github.com/amanzi/ats/blob/ats-1.6.0/docs/documentation/source/input_spec/symbol_table.org); the corrections and qualifications below use the evaluator equations and interface definitions.
 
-| Variable Root Name                        | Symbol                | Description                                                                      | Units                                                              | Process   |
-| ----------------------------------------- | --------------------- | -------------------------------------------------------------------------------- | ------------------------------------------------------------------ | --------- |
-| coordinate, centroid                      | x, y, z        | spatial coordinates                                                              | [m]                                                             |           |
-| time                                      | t                   | time variable                                                                    | [s]                                                             |           |
-| cell_volume                              | V  | volume (if 3D) or area (if 2D) of a discrete element                             | [m^3] or [m^2]                                               |           |
-| gravity                                   | g                   | gravitational acceleration vector                                                | [m s^{-2}]                                                    |           |
-| canopy-drainage                           | D                   | flux of water dripping from the canopy to the ground below                       | [m s^{-1}]                                                    | canopy    |
-| canopy-throughfall_drainage_{rain,snow} |                       | source of {rain,snow} to the respective layer, throughfall + drainage            | [m s^{-1}]                                                    | canopy    |
-| canopy-evaporation                        | E_{can}            | evaporative flux of stored water from the leaf surface                           | [m s^{-1}]                                                    | canopy    |
-| canopy-fracwet                            | f_{wet}            | fraction of the canopy leaf area that is covered in water                        | [-]                                                             | canopy    |
-| canopy-water_content                     | Theta_{can}       |  extensive water content on the leaf surface                                 | [mol]                                      | canopy    |
-| canopy-water_equivalent                  |                       | effective thickness of water (per unit surface or leaf area?)                  | [m]                                                             | canopy    |
-| canopy-water_source                      |                       | sum of all sources and sinks of water to the leaf surface                        | [mol m^2 s^{-1}]                         | canopy    |
-| canopy-water_source_meters              |                       | sum of all sources and sinks of water to the leaf surface                        | [m s^{-1}]                                                    | canopy    |
-| canopy-interception                       | I_{can}            | flux of water to the canopy as intercepted rain or snow                          | [m s^{-1}]                                                    | canopy    |
-| canopy-leaf_area_index                  | LAI                 | leaf area per unit surface area                                                  | [-]                                                             | canopy    |
-| canopy-potential_transpiration           | T_{pot}            | potential transpiration, unlimited by water availability                         | [m s^{-1}]                                                    | canopy    |
-| canopy-potential_transpiration_mols     | T_{pot}            | potential transpiration, unlimited by water availability                         | [mol m^{-2} s^{-1}]                      | canopy    |
-| canopy-temperature                        | T_{can}            | leaf temperature, used in longwave radiation out calculation                     | [K]                                                             | canopy    |
-| {canopy,snow,surface}-radiation_balance  |                       | net energy balance including radiation and conduction (Priestley-Taylor's R - G) |                                                                    | surface   |
-| snow-depth                                | h_{snow}           | thickness of the snowpack                                                        | [m]                                                             | snow      |
-| snow-age                                  |                       | average age of the snowpack                                                      | [day]                                                           | snow      |
-| snow-density                              | rho_{snow}        | Mass density of the snow                                                         | [kg m^-3]                                                     | snow      |
-| snow-melt                                 | M                   | Snow melt rate (SWE)                                                             | [m SWE s^{-1}]                               | snow      |
-| snow-precipitation                        | P_{snow}           | precipitation of snow, in snow-water-equivalent (SWE)                            | [m SWE s^{-1}]                             | snow      |
-| snow-evaporation                          | E_{snow}           | evaporation of snow, in snow-water-equivalent (SWE)                              | [m SWE s^{-1}]                             | snow      |
-| snow-source_sink                         | Q_{snow}           | extensive sum of all sources and sinks of water as snow                          | [mol s^{-1}]                             | snow      |
-| snow-water_source                        | Q_{snow}           | sum of all sources and sinks of water as snow                                    | [mol m^{-2} s^{-1}]                      | snow      |
-| snow-water_source_meters                | Q_{snow}           | sum of all sources and sinks of water as snow                                    | [m s^{-1}]                                                  | snow      |
-| snow-source                               |                       | sum of all sources of water as snow, excluding sinks                             | [m s^{-1}]                                                    | snow      |
-| snow-death_rate                          |                       | If all snow disappears in a timestep, the effective rate of snow loss.           | [m SWE s^{-1}]                               | snow      |
-| snow-water_equivalent                    | SWE                 | equivalent "ponded_depth" if one melted the snow                                | [m]                                                             | snow      |
-| snow-water_content                       | Theta_{snow}      |  extensive water content in snow                                             | [mol]                                      | snow      |
-| snow-temperature                          | T_{snow}           | temperature of the snowpack                                                      | [K]                                                             | snow      |
-| surface-ponded_depth                     | h                   | ponded depth, or the water head over the surface                                 | [m]                                                             | flow      |
-| surface-unfrozen_effective_depth        | eta h              | portion of ponded depth that is unfrozen                                         | [m]                                                             | flow      |
-| surface-unfrozen_fraction                | eta                | fraction of water on the surface that is liquid (vs ice)                         | [-]                                                             | energy    |
-| surface-albedo                            | alpha              | area-weighted albedo of the surface, as seen by the canopy/atmosphere            | [-]                                                             | surface   |
-| surface-albedos.{bare,water,snow}         | alpha              | albedo of a given media                                                          | [-]                                                             | surface   |
-| surface-emissivities.{bare,water,snow}    | epsilon            | emissivity (equivalently absorptivity) of a given media                          | [-]                                                             | surface   |
-| surface-area_fractions.{bare,water,snow} | a                   | fraction of the ground surface of a given media                                  | [-]                                                             | surface   |
-| surface-incoming_longwave_radiation     | Q^e_{SW}           | longwave radiation from the atmosphere                                           | [W m^{-2}]                                                    | surface   |
-| surface-incoming_shortwave_radiation    | Q^e_{SW}           | shortwave radiation from the atmosphere                                          | [W m^{-2}]                                                    | surface   |
-| surface-incident_shortwave_radiation    | Q^e_{SWin}         | shortwave radiation incident on a surface (of a given slope/aspect)              | [W m^{-2}]                                                    | surface   |
-| surface-qE_conducted                     | Q^e_{c}            | energy conducted to the ground surface                                           | [W m^{-2}]                                                    | surface   |
-| surface-qE_lw_out                       | Q^e_{LWout}        | longwave energy radiated away from the surface                                   | [W m^{-2}]                                                    | surface   |
-| surface-qE_sensible_heat                | Q^e_{h}            | sensible heat flux to the atmosphere                                             | [W m^{-2}]                                                    | surface   |
-| surface-qE_latent_heat                  | Q^e_{E}            | latent heat flux to the atmosphere                                               | [W m^{-2}]                                                    | surface   |
-| surface-qE_snowmelt                      | Q^e_{snow}         | latent heat released via snowmelt                                                | [W m^{-2}]                                                    | surface   |
-| surface-transpiration                     | T                   | actual transpiration, integrated vertically and limited by water availability    | [m s^{-1}]                                                    | flow      |
-| surface-total_evapotranspiration         | ET                  | total evaporation (canopy, snow, and bare ground) plus transpiration             | [m s^{-1}]                                                    | flow      |
-| surface-capillary_pressure_plant        | pc_{can}           | capillary pressure in the plant stem at the ground surface                       | [Pa]                                                            | flow      |
-| surface-overland_conductivity            | k                   | coefficient for the diffusion wave equation                                      | []                                                           | flow      |
-| surface-manning_coefficient              | m_n                | coefficient in Manning's equation, a measure of surface roughness                | []                                                           | flow      |
-| surface-precipitation_rain               | P_{r}              | precipitation of rain                                                            | [m s^{-1}]                                                    | surface   |
-| surface-air_temperature                  | T_{air}            | temperature of the air at the ground surface                                     | [K]                                                             | surface   |
-| surface-vapor_pressure_air              | vp_{air}           | partial pressure of water vapor in the atmosphere                                | [Pa]                                                            | surface   |
-| surface-wind_speed                       | v_{air}          | magnitude of the wind speed                                                      | [m s^{-1}]                                                    | surface   |
-| surface-water_source                     | Q_s                | extensive sum of all sources and sinks of water as liquid (surface)              | [mol s^{-1}]                               | flow      |
-| surface-elevation                         | z                   | elevation                                                                        | [m]                                                             |           |
-| surface-aspect                            | psi                | aspect, clockwise relative to North, in [0,360)                                 | [degrees]                                                       | surface   |
-| surface-slope_magnitude                  | S       | 1 - dot product of the surface's normal with the vertical                        | [-]                                                             | flow      |
-| surface-water_flux                       | q_s       | surface flux vector                                                              | [mol s^{-1}]                               | flow      |
-| surface-velocity.{1,2}                | V_s       | surface water velocity vector                                                    | [m s^{-1}]                                                    | flow      |
-| surface-evaporative_flux                 | E                   | water sink due to evaporation                                                    | [m s^{-1}]                                                    | flow      |
-| surface-evaporation                       | E                   | water sink due to evaporation                                                    | [m s^{-1}]                                                    | flow      |
-| surface-soil_resistance                  | r_{soil}           | resistance of soil to water vapor transport, used in evaporation downregulation  | [-]                                                             | flow      |
-| surface-subsurface_flux                  | q_{ss}   | infiltration, the flux of water into the ground                                  | [mol s^{-1}]                               | flow      |
-| surface-subsurface_energy_flux          | q^e_{ss} | diffusive flux of energy into the ground                                         | [MJ s^{-1}]                                | energy    |
-| surface-advected_energy_flux            | eq_s      | extensive energy flux due to advection (face-based)                              | [MJ s^{-1}]                                | energy    |
-| surface-diffusive_energy_flux           | q_s^e     | extensive energy flux due to diffusion (face-based)                              | [MJ s^{-1}]                                | energy    |
-| surface-water_content                    | Theta_s           |  extensive water content (liquid or ice, but not snow) of a cell             | [mol]                                        | flow      |
-| surface-temperature                       | T_s                | temperature of ponded water or the ground surface                                | [K]                                                             | energy    |
-| surface-source_molar_density            | n_{source}         | molar density of all water sources (surface)                                     | [mol m^{-3}]                               | flow      |
-| transpiration                             | T                   | actual transpiration, vertically distributed to the subsurface                   | [mol m^-3 s^{-1}]                        | flow      |
-| root_fraction                            | f_r                | fraction of all roots in this soil layer (vertically sums to 1)                  | [-]                                                             | flow      |
-| permeability                              | K                   | absolute permeability                                                            | [m^2]                                                           | flow      |
-| relative_permeability                | k_r                | relative conductivity, frac{n}{\mu} k                                     |                                                            | flow      |
-| molar_density_{liquid,gas,ice}      | n_{l,g,i}      | molar density of a given phase                                                   | [mol m^{-3}]                               |           |
-| mass_density_{liquid,gas,ice}           | rho_{l,g,i}   | mass density of a phase                                                          | [kg m^{-3}]                                |           |
-| density_rock                             | rho_{rock}        | mass density of the medium                                                       | [kg m^{-3}]                                |           |
-| pressure                                  | p                   | pressure of the liquid phase                                                     | [Pa]                                         | flow      |
-| water_source                             | Q                   | extensive sum of all sources and sinks of water as liquid (subsurface)           | [mol s^{-1}]                               | flow      |
-| source_molar_density                    | n_{source}         | molar density of all water sources (subsurface)                                  | [mol m^{-3}]                               | flow      |
-| saturation_{liquid,gas,ice}              | s_{l,g,i}      | saturation of a given phase                                                      | [-]                                                             | flow      |
-| capillary_pressure_{A}_{B}             | p_c^{A-B}          | capillary pressure of phase A over phase B                                       | [Pa]                                                            | flow      |
-| viscosity_liquid                         | nu                 | dynamic viscosity of water                                                       | [Pa s]                                     | flow      |
-| base_porosity                            | phi_0             | porosity of the undeformed medium                                                | [-]                                                             | flow      |
-| porosity                                  | phi                | porosity of the medium, including any compressibility/specific storage           | [-]                                                             | flow      |
-| water_flux                               | q          | extensive water flux (face-based)                                                | [mol s^{-1}]                               | flow      |
-| darcy_velocity.{1,2,3}               | V          | subsurface water velocity vector                                                 | [m s^{-1}]                                                    | flow      |
-| water_content                            | Theta              |  extensive water content (liquid, ice, or vapor) of a cell                   | [mol]                                      | flow      |
-| temperature                               | T                   | temperature                                                                      | [K]                                                             | energy    |
-| thermal_conductivity                     | kappa              | thermal conductivity of the grid cell                                            | [MW m^{-1} K^{-1}]                       | energy    |
-| total_energy_source                 | Q^e                 |  extensive sum of all sources and sinks of energy                            | [MJ s^{-1}]                                | energy    |
-| advected_energy_flux                    | eq         | extensive energy flux due to advection (face-based)                              | [MJ s^{-1}]                                | energy    |
-| diffusive_energy_flux                   | q^e        | extensive energy flux due to diffusion (face-based)                              | [MJ s^{-1}]                                | energy    |
-| internal_energy_{liquid,gas,ice,rock}   | u_X                |  specific internal energy of a given phase/medium                            | [MJ mol^{-1}]           | energy    |
-| energy                                    | E                   |  extensive energy of a cell                                                  | [MJ]                                         | energy    |
-| enthalpy                                  | e                   |  specific enthalpy                                                           | [MJ mol^{-1}]           | energy    |
-| mole_ratio                               | xi^C               | ratio of mols of C to mols of H2O, typically in the liquid phase                 | [molC molH2O^{-1}]  | transport |
-| total_component_concentration           | C                   | concentration of a component C in liquid water                                   | [mol C L^{-1}]                            | chemistry |
-| mineral_volume_fractions                |                       | mineral volume fractions for solid phase reactions                               | [-]                                                             | chemistry |
-| mineral_specific_surface_area          |                       | specific surface area of solid phase                                             | [m^2 (surface area) m^{-3}]                    | chemistry |
-| mineral_rate_constant                   |                       | reaction rate constants for solid phase                                          |                                                                  | chemistry |
-| surface_site_density                    |                       | density of sites for surface complexation                                      |                                                                  | chemistry |
-| total_sorbed                             | C^{sorb}              | concentration of sorbed C                                                        | [molC L^{-1}]                             | chemistry |
-| isotherm_kd                              |                       | isotherm k                                                                       |                                                                  | chemistry |
-| isotherm_freundlich_n                   |                       | Freundlich's n for isotherms                                                     |                                                                  | chemistry |
-| isotherm_langmuir_b                     |                       | Langmuir's b for isotherms                                                       |                                                                  | chemistry |
-| first_order_decay_rate_constant       | k_{C1,C2}            | decay rate constant for first order reactions from C1 to C2                      |                                                                  | chemistry |
-| cation_exchange_capacity                | CEC                   | cation exchange capacity                                                         |                                                                  | chemistry |
-| aux_data                                 |                       | auxiliary data needed by the geochemical engine                                  |                                                                 | chemistry |
+Use the units of the values actually archived in your Data Dictionary. Observation output, spatial/time integration, unit conversion, and custom evaluators can change units. A variable name alone does not establish its units. `1` denotes a dimensionless quantity; SWE means snow water equivalent, so a SWE depth has units of metres of liquid water. Unless a component is specified, `mol` in the water-flow rows means moles of water. In the chemistry rows, C denotes a chemical component, not necessarily carbon.
 
+| Variable Root Name | Symbol | Description | Units | Process |
+| --- | --- | --- | --- | --- |
+| coordinate, centroid | x, y, z | spatial coordinates | m |  |
+| time | t | time variable | s |  |
+| cell_volume | V | volume (if 3D) or area (if 2D) of a discrete element | m<sup>3</sup> or m<sup>2</sup> |  |
+| gravity | g | gravitational acceleration vector | m s<sup>-2</sup> |  |
+| canopy-drainage | D | flux of water dripping from the canopy to the ground below | m s<sup>-1</sup> | canopy |
+| canopy-throughfall_drainage_{rain,snow} |  | source of {rain,snow} to the respective layer, throughfall + drainage | m s<sup>-1</sup> | canopy |
+| canopy-evaporation | E_{can} | evaporative flux of stored water from the leaf surface | m s<sup>-1</sup> | canopy |
+| canopy-fracwet | f_{wet} | fraction of the canopy leaf area that is covered in water | 1 (dimensionless) | canopy |
+| canopy-water_content | Theta_{can} | extensive water content on the leaf surface | mol | canopy |
+| canopy-water_equivalent |  | water-equivalent thickness of intercepted canopy water; record the area basis used by the evaluator | m | canopy |
+| canopy-water_source |  | net canopy water source per unit area, in the molar formulation (note 2) | mol m<sup>-2</sup> s<sup>-1</sup> | canopy |
+| canopy-water_source_meters |  | sum of all sources and sinks of water to the leaf surface | m s<sup>-1</sup> | canopy |
+| canopy-interception | I_{can} | flux of water to the canopy as intercepted rain or snow | m s<sup>-1</sup> | canopy |
+| canopy-leaf_area_index | LAI | leaf area per unit surface area | 1 (dimensionless) | canopy |
+| canopy-potential_transpiration | T_{pot} | potential transpiration, unlimited by water availability | m s<sup>-1</sup> | canopy |
+| canopy-potential_transpiration_mols | T_{pot} | potential transpiration, unlimited by water availability | mol m<sup>-2</sup> s<sup>-1</sup> | canopy |
+| canopy-temperature | T_{can} | leaf temperature, used in longwave radiation out calculation | K | canopy |
+| {canopy,snow,surface}-radiation_balance |  | net radiation into the layer per unit area; surface/snow values are per actual patch area | W m<sup>-2</sup> | surface |
+| snow-depth | h_{snow} | thickness of the snowpack | m | snow |
+| snow-age |  | average age of the snowpack | day | snow |
+| snow-density | rho_{snow} | Mass density of the snow | kg m<sup>-3</sup> | snow |
+| snow-melt | M | Snow melt rate (SWE) | m s<sup>-1</sup> (SWE) | snow |
+| snow-precipitation | P_{snow} | precipitation of snow, in snow-water-equivalent (SWE) | m s<sup>-1</sup> (SWE) | snow |
+| snow-evaporation | E_{snow} | evaporation of snow, in snow-water-equivalent (SWE) | m s<sup>-1</sup> (SWE) | snow |
+| snow-source_sink | Q_{snow} | net snow source in the surface energy balance evaluator, expressed as SWE depth rate (note 2) | m s<sup>-1</sup> (SWE) | snow |
+| snow-water_source | Q_{snow} | net snow water source per unit area, in the molar formulation (note 2) | mol m<sup>-2</sup> s<sup>-1</sup> | snow |
+| snow-water_source_meters | Q_{snow} | sum of all sources and sinks of water as snow | m s<sup>-1</sup> | snow |
+| snow-source |  | sum of all sources of water as snow, excluding sinks | m s<sup>-1</sup> | snow |
+| snow-death_rate |  | If all snow disappears in a timestep, the effective rate of snow loss. | m s<sup>-1</sup> (SWE) | snow |
+| snow-water_equivalent | SWE | equivalent "ponded_depth" if one melted the snow | m | snow |
+| snow-water_content | Theta_{snow} | cell-integrated snow water content; check the conserved quantity (note 2) | mol (molar formulation); m<sup>3</sup> (SWE-volume formulation) | snow |
+| snow-temperature | T_{snow} | temperature of the snowpack | K | snow |
+| surface-ponded_depth | h | ponded depth, or the water head over the surface | m | flow |
+| surface-unfrozen_effective_depth | eta h | portion of ponded depth that is unfrozen | m | flow |
+| surface-unfrozen_fraction | eta | fraction of water on the surface that is liquid (vs ice) | 1 (dimensionless) | energy |
+| surface-albedo | alpha | area-weighted albedo of the surface, as seen by the canopy/atmosphere | 1 (dimensionless) | surface |
+| surface-albedos.{bare,water,snow} | alpha | albedo of a given media | 1 (dimensionless) | surface |
+| surface-emissivities.{bare,water,snow} | epsilon | emissivity (equivalently absorptivity) of a given media | 1 (dimensionless) | surface |
+| surface-area_fractions.{bare,water,snow} | a | fraction of the ground surface of a given media | 1 (dimensionless) | surface |
+| surface-incoming_longwave_radiation | Q^e_{LW} | longwave radiation from the atmosphere | W m<sup>-2</sup> | surface |
+| surface-incoming_shortwave_radiation | Q^e_{SW} | shortwave radiation from the atmosphere | W m<sup>-2</sup> | surface |
+| surface-incident_shortwave_radiation | Q^e_{SWin} | shortwave radiation incident on a surface (of a given slope/aspect) | W m<sup>-2</sup> | surface |
+| surface-qE_conducted | Q^e_{c} | energy conducted to the ground surface | W m<sup>-2</sup> | surface |
+| surface-qE_lw_out | Q^e_{LWout} | longwave energy radiated away from the surface | W m<sup>-2</sup> | surface |
+| surface-qE_sensible_heat | Q^e_{h} | sensible heat flux to the atmosphere | W m<sup>-2</sup> | surface |
+| surface-qE_latent_heat | Q^e_{E} | latent heat flux to the atmosphere | W m<sup>-2</sup> | surface |
+| surface-qE_snowmelt | Q^e_{snow} | latent heat released via snowmelt | W m<sup>-2</sup> | surface |
+| surface-transpiration | T | actual transpiration, integrated vertically and limited by water availability | m s<sup>-1</sup> | flow |
+| surface-total_evapotranspiration | ET | total evaporation (canopy, snow, and bare ground) plus transpiration | m s<sup>-1</sup> | flow |
+| surface-capillary_pressure_plant | pc_{can} | capillary pressure in the plant stem at the ground surface | Pa | flow |
+| surface-overland_conductivity | k | diffusion-wave coefficient, including molar density by default (note 3) | mol m<sup>-1</sup> s<sup>-1</sup>; m<sup>2</sup> s<sup>-1</sup> without density | flow |
+| surface-manning_coefficient | m_n | Manning roughness coefficient for the default exponent 2/3 (note 3) | s m<sup>-1/3</sup> | flow |
+| surface-precipitation_rain | P_{r} | precipitation of rain | m s<sup>-1</sup> | surface |
+| surface-air_temperature | T_{air} | temperature of the air at the ground surface | K | surface |
+| surface-vapor_pressure_air | vp_{air} | partial pressure of water vapor in the atmosphere | Pa | surface |
+| surface-wind_speed | v_{air} | magnitude of the wind speed | m s<sup>-1</sup> | surface |
+| surface-water_source | Q_s | net surface water source per unit area; default input is a depth rate (note 2) | m s<sup>-1</sup> (default); mol m<sup>-2</sup> s<sup>-1</sup> (molar input) | flow |
+| surface-elevation | z | elevation | m |  |
+| surface-aspect | psi | aspect, clockwise relative to North, in [0,360) | degree | surface |
+| surface-slope_magnitude | S | 1 - dot product of the surface's normal with the vertical | 1 (dimensionless) | flow |
+| surface-water_flux | q_s | water flow rate integrated across a surface-mesh edge | mol s<sup>-1</sup> | flow |
+| surface-velocity.{1,2} | V_s | surface water velocity vector | m s<sup>-1</sup> | flow |
+| surface-evaporative_flux | E | water sink due to evaporation | m s<sup>-1</sup> | flow |
+| surface-evaporation | E | water sink due to evaporation | m s<sup>-1</sup> | flow |
+| surface-soil_resistance | r_{soil} | resistance of soil to water-vapor transport used to limit evaporation | s m<sup>-1</sup> | flow |
+| surface-subsurface_flux | q_{ss} | infiltration, the flux of water into the ground | mol s<sup>-1</sup> | flow |
+| surface-subsurface_energy_flux | q^e_{ss} | diffusive flux of energy into the ground | MJ s<sup>-1</sup> | energy |
+| surface-advected_energy_flux | eq_s | extensive energy flux due to advection (face-based) | MJ s<sup>-1</sup> | energy |
+| surface-diffusive_energy_flux | q_s^e | extensive energy flux due to diffusion (face-based) | MJ s<sup>-1</sup> | energy |
+| surface-water_content | Theta_s | extensive water content (liquid or ice, but not snow) of a cell | mol | flow |
+| surface-temperature | T_s | temperature of ponded water or the ground surface | K | energy |
+| surface-source_molar_density | n_{source} | molar density of all water sources (surface) | mol m<sup>-3</sup> | flow |
+| transpiration | T | actual transpiration, vertically distributed to the subsurface | mol m<sup>-3</sup> s<sup>-1</sup> | flow |
+| root_fraction | f_r | fraction of all roots in this soil layer (vertically sums to 1) | 1 (dimensionless) | flow |
+| permeability | K | absolute permeability | m<sup>2</sup> | flow |
+| relative_permeability | k_r | ATS mobility coefficient, including molar density/viscosity by default; scaling and options in note 4 | mol m<sup>-3</sup> Pa<sup>-1</sup> s<sup>-1</sup> (default); 1 without density/viscosity | flow |
+| molar_density_{liquid,gas,ice} | n_{l,g,i} | molar density of water in a given phase | mol m<sup>-3</sup> |  |
+| mass_density_{liquid,gas,ice} | rho_{l,g,i} | mass density of a phase | kg m<sup>-3</sup> |  |
+| density_rock | rho_{rock} | mass density of the medium | kg m<sup>-3</sup> |  |
+| pressure | p | pressure of the liquid phase | Pa | flow |
+| water_source | Q | net subsurface water source per unit bulk volume | mol m<sup>-3</sup> s<sup>-1</sup> | flow |
+| source_molar_density | n_{source} | molar density of all water sources (subsurface) | mol m<sup>-3</sup> | flow |
+| saturation_{liquid,gas,ice} | s_{l,g,i} | saturation of a given phase | 1 (dimensionless) | flow |
+| capillary_pressure_{A}_{B} | p_c^{A-B} | capillary pressure of phase A over phase B | Pa | flow |
+| viscosity_liquid | nu | dynamic viscosity of water | Pa s | flow |
+| base_porosity | phi_0 | porosity of the undeformed medium | 1 (dimensionless) | flow |
+| porosity | phi | porosity of the medium, including any compressibility/specific storage | 1 (dimensionless) | flow |
+| water_flux | q | extensive water flux (face-based) | mol s<sup>-1</sup> | flow |
+| darcy_velocity.{1,2,3} | V | subsurface water velocity vector | m s<sup>-1</sup> | flow |
+| water_content | Theta | extensive water content (liquid, ice, or vapor) of a cell | mol | flow |
+| temperature | T | temperature | K | energy |
+| thermal_conductivity | kappa | thermal conductivity of the grid cell | MW m<sup>-1</sup> K<sup>-1</sup> | energy |
+| total_energy_source | Q^e | net subsurface energy source per unit bulk volume (note 5) | MJ m<sup>-3</sup> s<sup>-1</sup> | energy |
+| surface-total_energy_source | Q^e_s | net surface energy source per unit area (note 5) | MJ m<sup>-2</sup> s<sup>-1</sup> | energy |
+| advected_energy_flux | eq | extensive energy flux due to advection (face-based) | MJ s<sup>-1</sup> | energy |
+| diffusive_energy_flux | q^e | extensive energy flux due to diffusion (face-based) | MJ s<sup>-1</sup> | energy |
+| internal_energy_{liquid,gas,ice} | u_X | molar internal energy of the fluid/ice phase in the standard energy model (note 5) | MJ mol<sup>-1</sup> | energy |
+| internal_energy_rock | u_rock | mass-specific internal energy of rock in the standard energy model (note 5) | MJ kg<sup>-1</sup> | energy |
+| energy | E | extensive energy of a cell | MJ | energy |
+| enthalpy | e | specific enthalpy | MJ mol<sup>-1</sup> | energy |
+| mole_ratio | xi^C | moles of component C per mole of water, typically in the liquid phase | mol C (mol H<sub>2</sub>O)<sup>-1</sup> | transport |
+| total_component_concentration | C | aqueous component concentration per litre of liquid water in Alquimia (note 6) | mol C L<sup>-1</sup> | chemistry |
+| mineral_volume_fractions |  | mineral volume fractions for solid phase reactions | 1 (dimensionless) | chemistry |
+| mineral_specific_surface_area |  | reactive mineral surface area per unit bulk volume (note 6) | m<sup>2</sup> m<sup>-3</sup> (bulk) | chemistry |
+| mineral_rate_constant |  | mineral surface reaction rate constant in the Alquimia interface (note 6) | mol m<sup>-2</sup> s<sup>-1</sup> | chemistry |
+| surface_site_density |  | amount of surface-complexation sites per unit bulk volume in Alquimia (note 6) | mol m<sup>-3</sup> (bulk) | chemistry |
+| total_sorbed | C^{sorb} | sorbed component concentration per unit bulk volume in Alquimia (note 6) | mol m<sup>-3</sup> (bulk) | chemistry |
+| isotherm_kd |  | linear distribution coefficient on a molality basis; nonlinear forms differ (note 6) | kg H<sub>2</sub>O m<sup>-3</sup> (bulk), for the linear model | chemistry |
+| isotherm_freundlich_n |  | Freundlich exponent parameter; the equation may use n or 1/n (note 6) | 1 (dimensionless) | chemistry |
+| isotherm_langmuir_b |  | Langmuir parameter; its meaning and units depend on the engine (note 6) | mol m<sup>-3</sup> (bulk) when b is maximum sorbed concentration | chemistry |
+| first_order_decay_rate_constant | k_{C1,C2} | rate constant for a first-order reaction on a seconds time basis (note 6) | s<sup>-1</sup> | chemistry |
+| cation_exchange_capacity | CEC | exchange-site capacity per unit bulk volume in Alquimia (note 6) | mol m<sup>-3</sup> (bulk) | chemistry |
+| aux_data |  | packed geochemical engine state; document each archived component separately (note 6) | Varies by component (note 6) | chemistry |
+
+**Unit conventions and sources**
+
+1. **Cell totals and fluxes.** `water_content` is an amount per cell, while `water_flux` is a flow rate integrated over a mesh face (or surface-mesh edge). Neither is a flux density. Divide by the appropriate area only when creating a flux density, and record that conversion. `cell_volume` is a volume for 3D cells and an area for 2D surface cells. Spatial or temporal integration of observations changes units accordingly.
+
+2. **Water sources and snow formulations.** The [Richards source term](https://github.com/amanzi/ats/blob/ats-1.6.0/src/pks/flow/richards_physics.cc) multiplies `water_source` by cell volume, so its units are mol m<sup>-3</sup> s<sup>-1</sup>. The [overland source setup](https://github.com/amanzi/ats/blob/ats-1.6.0/src/pks/flow/overland_pressure_pk.cc) defaults to `water source in meters = true`: `surface-water_source` is m s<sup>-1</sup>, and multiplication by source molar density creates `surface-water_source_mols` in mol m<sup>-2</sup> s<sup>-1</sup>. With that option disabled, the supplied source is already molar per area. The [surface energy balance evaluator](https://github.com/amanzi/ats/blob/ats-1.6.0/src/pks/surface_balance/constitutive_relations/land_cover/seb_twocomponent_evaluator.hh) defines `snow-source_sink` in m s<sup>-1</sup> of SWE. Snow/canopy configurations that conserve moles instead require molar sources per area; the `_meters` variants remain depth rates. Check the configured conserved-quantity evaluator: SWE depth times cell area is m<sup>3</sup>, while multiplying additionally by water molar density gives mol. Record the area basis for canopy water-equivalent depths and fluxes.
+
+3. **Manning conductivity and resistance.** The [Manning model](https://github.com/amanzi/ats/blob/ats-1.6.0/src/pks/flow/constitutive_relations/overland_conductivity/manning_conductivity_model.cc) uses depth<sup>1+alpha</sup> divided by roughness and the square root of slope. For alpha = 2/3, roughness has units s m<sup>-1/3</sup>, and the depth-based conductivity has units m<sup>2</sup> s<sup>-1</sup>. The [conductivity evaluator](https://github.com/amanzi/ats/blob/ats-1.6.0/src/pks/flow/constitutive_relations/overland_conductivity/overland_conductivity_evaluator.cc) includes molar density by default, giving mol m<sup>-1</sup> s<sup>-1</sup>. A different exponent requires a correspondingly defined roughness coefficient. Soil vapor resistance has units s m<sup>-1</sup>, consistent with the [resistance model](https://github.com/amanzi/ats/blob/ats-1.6.0/src/pks/flow/constitutive_relations/sources/soil_resistance_sakagucki_zeng_model.hh).
+
+4. **Relative permeability versus stored mobility.** The [relative-permeability evaluator](https://github.com/amanzi/ats/blob/ats-1.6.0/src/pks/flow/constitutive_relations/wrm/rel_perm_evaluator.cc) defaults to `use density on viscosity in rel perm = true`. Its field therefore contains relative permeability multiplied by molar density and divided by dynamic viscosity, with units mol m<sup>-3</sup> Pa<sup>-1</sup> s<sup>-1</sup>. Disabling that option gives a dimensionless field. The permeability rescaling factor also affects the stored numerical value; record it when interpreting this field. The physical relative permeability itself is dimensionless.
+
+5. **Energy units.** ATS uses MJ for stored energy and MJ s<sup>-1</sup> for integrated energy flow rates. The [energy source equation](https://github.com/amanzi/ats/blob/ats-1.6.0/src/pks/energy/energy_base_physics.cc) multiplies source values by cell volume/area, so subsurface/surface source densities are MJ m<sup>-3</sup> s<sup>-1</sup> and MJ m<sup>-2</sup> s<sup>-1</sup>, respectively. MW is equivalent to MJ s<sup>-1</sup>; the [thermal conductivity evaluator](https://github.com/amanzi/ats/blob/ats-1.6.0/src/pks/energy/constitutive_relations/thermal_conductivity/thermal_conductivity_threephase_evaluator.cc) converts input conductivities from W to MW. Surface radiation and turbulent heat-flux diagnostics retain W m<sup>-2</sup>. In the [standard three-phase energy model](https://github.com/amanzi/ats/blob/ats-1.6.0/src/pks/energy/constitutive_relations/energy/three_phase_energy_model.cc), fluid/ice internal energies multiply molar densities and rock internal energy multiplies rock mass density: their units are MJ mol<sup>-1</sup> and MJ kg<sup>-1</sup>, respectively. Match any custom internal-energy evaluator to its density basis.
+
+6. **Chemistry basis and model-dependent parameters.** The [Alquimia API unit definitions](https://github.com/LBL-EESA/alquimia-dev/blob/405e010afba051dd9ad3a9f15b8bb7003ee46e46/doc/api/APIv1_structures.rst) distinguish aqueous mol L<sup>-1</sup> from sorbed amounts, surface sites, and exchange capacity per m<sup>3</sup> of **bulk material**. Mineral specific surface area is mineral area per bulk volume; a surface-site density per mineral area is a different quantity. The tabulated mineral rate constant is per reactive mineral area, and s<sup>-1</sup> applies only to first-order decay. Check the engine/version and any conversions when archiving other chemistry representations.
+
+   For linear sorption using aqueous molality, `isotherm_kd` has units kg H<sub>2</sub>O m<sup>-3</sup> (bulk). More generally, for `S = Kd * C^p`, the units of `Kd` are the units of `S` divided by the units of `C` raised to `p`; specify both concentration bases and the exponent convention. Freundlich `n` is dimensionless. In the [Amanzi Langmuir implementation](https://github.com/amanzi/amanzi/blob/42cadd935d1a3095e36b19b380dc9290cd12d3af/src/common/chemistry/reactions/SorptionIsothermLangmuir.cc), `S = K * C * b / (1 + K * C)`, `b` is a maximum sorbed concentration (mol m<sup>-3</sup> bulk), and `K` has inverse aqueous-concentration units. Other parameterizations use `b` for the affinity coefficient instead; document the equation rather than transferring units by parameter name. `aux_data` can mix concentrations, activity coefficients, and internal engine values, so it has no single unit.
 
 
 ## Review: Model Data Archiving Guidelines
