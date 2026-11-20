@@ -31,7 +31,7 @@ logger.propagate = False
 if not logger.handlers:
     logger.addHandler(logging.StreamHandler(sys.stdout))
 
-# FLMD release-v1.2.0, verified against commit dddb7776cb118332cb77f1d49803657894478d53.
+# FLMD release-v2.0.0, verified against commit dddb7776cb118332cb77f1d49803657894478d53.
 FLMD_COLUMNS = ["file_name", "file_description", "standard", "data_dictionary_file_name",
                 "file_version", "data_orientation", "header_rows", "column_or_row_name_position", "notes"]
 DD_COLUMNS = ["column_or_row_name", "unit", "definition", "column_or_row_long_name", "data_type", "missing_value_code"]
@@ -405,7 +405,7 @@ def read_table(path, columns):
         return None
     frame = pd.read_csv(path, keep_default_na=False, dtype=str)
     if list(frame.columns) != columns:
-        raise ValueError(f"{path.name} has a different metadata schema. Back it up and migrate it to the v1.2.0 template before rerunning.")
+        raise ValueError(f"{path.name} has a different metadata schema. Back it up and migrate it to the v2.0.0 template before rerunning.")
     key = columns[0]
     if frame[key].duplicated().any() or frame[key].str.strip().eq('').any():
         raise ValueError(f"{path.name} contains blank or duplicate {key} values. Correct them before rerunning.")
@@ -440,10 +440,10 @@ def inventory(cfg):
             if token in path.name:
                 row['file_description'] = desc
         if path.name == 'flmd.csv' or path.name.endswith('_flmd.csv'):
-            row.update(file_description='File Level Metadata for this archive.', standard='ESS-DIVE FLMD v1',
+            row.update(file_description='File Level Metadata for this archive.', standard='ESS-DIVE FLMD v2',
                        data_orientation='horizontal', header_rows=1, column_or_row_name_position=1)
         elif path.name == 'dd.csv' or path.name.endswith('_dd.csv'):
-            row.update(file_description='Data Dictionary for associated tabular files.', standard='ESS-DIVE FLMD v1',
+            row.update(file_description='Data Dictionary for associated tabular files.', standard='ESS-DIVE FLMD v2',
                        data_orientation='horizontal', header_rows=1, column_or_row_name_position=1)
         row.update(previous.get(name, {}))
         rows.append(row)
