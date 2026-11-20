@@ -92,7 +92,7 @@ The notebook does not infer dataset dates. These belong in dataset metadata; `st
 
 - Add **`ESS-DIVE ATS Model Data Archive (MDA) Reporting Format`** to the dataset metadata **Keywords** field.
 - In `flmd.csv`, set **`standard`** to **`ESS-DIVE ATS MDA v1`** for files described by this reporting format. Use the major version only. The keyword is a dataset-level label; `standard` is a per-file field.
-- The generated metadata tables use **`ESS-DIVE FLMD v1`** as their standard. Also include **`ESS-DIVE File Level Metadata Reporting Format`** in the dataset keywords when submitting them. Use one applicable standard per file and review the notebook's assignments.
+- The generated metadata tables use **`ESS-DIVE FLMD v2`** as their standard. Also include **`ESS-DIVE File Level Metadata Reporting Format`** in the dataset keywords when submitting them. Use one applicable standard per file and review the notebook's assignments.
 - Set `data_dictionary_file_name` for every tabular file with an associated dictionary. Use `dd.csv` or a filename ending in `_dd.csv`; do not use wildcards in this field.
 
 ### Step 8 — Optionally create archives for transfer
