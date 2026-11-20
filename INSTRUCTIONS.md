@@ -57,15 +57,15 @@ Visualization HDF5 and XMF files are retained by default. To remove them for spi
 
 ### Step 4 — Generate File Level Metadata
 
-The inventory uses the [FLMD v1.2.0 template](https://github.com/ess-dive-workspace/essdive-file-level-metadata/blob/release-v1.2.0/file_level_metadata_flmd/template_flmd.csv). `file_name` contains the package-relative path. Existing descriptions, notes, and dictionary associations are reloaded from `flmd.csv` and retained. Missing files are removed from the inventory with a warning; new files receive draft entries. Legacy schemas must be backed up and migrated before rerunning.
+The inventory uses the [FLMD v2.0.0 template](https://github.com/ess-dive-workspace/essdive-file-level-metadata/blob/main/file_level_metadata_flmd/template_flmd.csv). `file_name` contains the package-relative path. Existing descriptions, notes, and dictionary associations are reloaded from `flmd.csv` and retained. Missing files are removed from the inventory with a warning; new files receive draft entries. Legacy schemas must be backed up and migrated before rerunning.
 
-Review every `file_description` and `standard`. Applicable model files default to `ESS-DIVE ATS MDA v1`; companion metadata tables use `ESS-DIVE FLMD v1`. Unknown optional values remain blank. Step 5 supplies dictionary associations and header positions. The final checksum manifest is excluded from the inventory.
+Review every `file_description` and `standard`. Applicable model files default to `ESS-DIVE ATS MDA v1`; companion metadata tables use `ESS-DIVE FLMD v2`. Unknown optional values remain blank. Step 5 supplies dictionary associations and header positions. The final checksum manifest is excluded from the inventory.
 
 ### Step 5 — Generate one Data Dictionary for an observation schema
 
 Each execution creates one dictionary, named by `dd_file_name` (`dd.csv` by default). All matching files must have identical header names and units; each file's header position is checked separately before any optional rewrite. Differing schemas stop the step. No matches produce a warning and no dictionary.
 
-The [DD v1.2.0 fields](https://github.com/ess-dive-workspace/essdive-file-level-metadata/blob/release-v1.2.0/data_dictionary_dd/template_dd.csv) are `column_or_row_name`, `unit`, `definition`, `column_or_row_long_name`, `data_type`, and `missing_value_code`. Names match actual data headers exactly. Provide one actual missing-value code per variable. Existing dictionaries with the same names and units retain manual entries; incompatible schemas require a different dictionary filename.
+The [DD v2.0.0 terms](https://github.com/ess-dive-workspace/essdive-file-level-metadata/blob/main/data_dictionary_dd/template_dd.csv) are `column_or_row_name`, `unit`, `definition`, `column_or_row_long_name`, `data_type`, and `missing_value_code`. Names match actual data headers exactly. Provide one actual missing-value code per variable. Existing dictionaries with the same names and units retain manual entries; incompatible schemas require a different dictionary filename.
 
 For additional schemas, select a different `obs_file_handle` and a distinct name such as `energy_balance_dd.csv`, then repeat steps 5–7. FLMD associations persist on disk, including after a kernel restart. See the FAQ below for parser requirements and optional header rewriting.
 
@@ -86,14 +86,14 @@ For a model dataset, report the calendar period represented by the archived data
 - Record the model time origin, elapsed-time units, calendar, and any repeated forcing cycles. Artificial spinup years or elapsed simulation time must not be presented as real calendar dates without a documented mapping.
 - For idealized, steady-state, or other simulations with no meaningful calendar dates, explain this in the Methods and consult ESS-DIVE support about the required Start Date before publication. Do not invent a date. Leave End Date blank only where appropriate, such as an open-ended dataset.
 
-The notebook does not infer dataset dates. These belong in dataset metadata; `start_date` and `end_date` are not fields in the v1.2.0 FLMD template.
+The notebook does not infer dataset dates. These belong in dataset metadata; `start_date` and `end_date` are not terms in the v2.0.0 FLMD template.
 
 #### Reporting format keyword and standard
 
 - Add **`ESS-DIVE ATS Model Data Archive (MDA) Reporting Format`** to the dataset metadata **Keywords** field.
-- In `flmd.csv`, set **`standard`** to **`ESS-DIVE ATS MDA v1`** for files described by this reporting format. Use the major version only. The keyword is a dataset-level label; `standard` is a per-file field.
+- In `flmd.csv`, set **`standard`** to **`ESS-DIVE ATS MDA v1`** for files described by this reporting format. Use the major version only. The keyword is a dataset-level label; `standard` is a per-file term.
 - The generated metadata tables use **`ESS-DIVE FLMD v2`** as their standard. Also include **`ESS-DIVE File Level Metadata Reporting Format`** in the dataset keywords when submitting them. Use one applicable standard per file and review the notebook's assignments.
-- Set `data_dictionary_file_name` for every tabular file with an associated dictionary. Use `dd.csv` or a filename ending in `_dd.csv`; do not use wildcards in this field.
+- Set `data_dictionary_file_name` for every tabular file with an associated dictionary. Use `dd.csv` or a filename ending in `_dd.csv`; do not use wildcards in this term.
 
 ### Step 8 — Optionally create archives for transfer
 
